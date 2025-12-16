@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DermaAI – Instant AI Skin Analysis</title>
+  <meta name="description" content="Upload a photo of your skin condition and get instant AI detection + doctor-level advice powered by custom YOLO + Google Gemini.">
+
+  <!-- Favicon Fix (no more 404) -->
+  <link rel="icon" href="data:,">
+
+  <!-- Fonts & Tailwind -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#e0f2fe',
+            accent: '#8b5cf6'
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
+
+  <!-- Hero Section -->
+  <div class="gradient-bg text-white py-16 md:py-24">
+    <div class="container mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+        DermaAI
+      </h1>
+      <p class="text-xl md:text-2xl font-light mb-6 opacity-90">
+        AI Dermatologist in Your Pocket
+      </p>
+      <p class="max-w-2xl mx-auto text-lg opacity-80 leading-relaxed">
+        Upload a clear photo → Our custom AI detects skin diseases → Gemini explains + gives treatment advice
+      </p>
+    </div>
+  </div>
+
+  <!-- Upload Card -->
+  <div class="container mx-auto px-6 -mt-12 mb-20">
+    <div class="card rounded-3xl shadow-2xl p-8 md:p-12 max-w-4xl mx-auto">
+
+      <!-- Upload Zone -->
+      <div id="uploadArea" class="border-4 border-dashed border-gray-300 rounded-2xl p-12 text-center cursor-pointer transition-all duration-300 hover:border-primary hover:bg-blue-50">
+        <svg class="w-20 h-20 mx-auto text-gray-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        <p class="text-2xl font-medium text-gray-700 mb-2">Drop your skin image here</p>
+        <p class="text-lg text-gray-500">or click to browse (JPG, PNG)</p>
+        <input type="file" id="imageInput" accept="image/*" class="hidden" />
+      </div>
+
+      <!-- Image Preview -->
+      <div id="preview" class="mt-10 hidden">
+        <p class="text-lg font-medium text-gray-600 mb-4 text-center">Your uploaded image:</p>
+        <div class="image-preview-container">
+          <img id="previewImg" class="max-w-full max-h-96 rounded-2xl shadow-xl mx-auto border-4 border-white" alt="Preview" />
+        </div>
+      </div>
+
+      <!-- Analyze Button -->
+      <button id="analyzeBtn" class="mt-10 w-full bg-primary text-white font-bold text-xl py-6 rounded-2xl hover:bg-blue-600 transition transform hover:scale-105 opacity-0 pointer-events-none">
+        <span id="btnText">Analyze with AI</span>
+        <span id="loading" class="hidden">
+          <svg class="animate-spin inline w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          Analyzing with AI...
+        </span>
+      </button>
+
+      <!-- Result Section -->
+      <div id="result" class="mt-12 hidden">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">🔍 AI Diagnosis Report</h2>
+        
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-8 border border-purple-200">
+          <div class="flex flex-col md:flex-row items-center gap-6 mb-8">
+            <div class="text-6xl">🏥</div>
+            <div>
+              <div id="detectedClass" class="disease-badge"></div>
+              <div id="confidence" class="text-lg text-gray-700 mt-4 font-semibold"></div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-8 shadow-inner">
+            <p class="text-lg font-semibold text-gray-800 mb-4">📝 Detailed Explanation & Advice:</p>
+            <div id="geminiResponse" class="prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
+          </div>
+
+          <div class="mt-10 p-6 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+            <p class="text-lg font-bold text-red-700">⚠️ Important Disclaimer:</p>
+            <p class="text-gray-700 mt-2">
+              This is an AI-powered suggestion, <strong>not a medical diagnosis</strong>. 
+              For serious conditions like melanoma or worsening symptoms, <u>consult a dermatologist immediately</u>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center py-8 text-gray-500 text-sm">
+    Made with love by AI Enthusiasts • Not for medical use • v1.0
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
