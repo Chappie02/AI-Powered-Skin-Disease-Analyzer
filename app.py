@@ -11,7 +11,7 @@ app = Flask(__name__, static_folder='.')
 model = YOLO('best.pt')  # ← your current best.pt (classifier)
 
 # PUT YOUR REAL GEMINI KEY HERE (in quotes!)
-genai.configure(api_key="AIzaSyD_v-yv9MHT2Na2uUKiHS7lmjlhUbKS74k")  # ← your key
+genai.configure(api_key="gemini api")  # ← your key
 
 # FIXED MODEL NAME: gemini-1.5-flash (works with v1beta API)
 gemini_model = genai.GenerativeModel('gemini-2.5-flash')
