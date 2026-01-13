@@ -1,4 +1,4 @@
-# DermaAI — Instant AI Skin Analysis
+# AI-Powered-skin-Disease-Analyzer
 
 > A small web app that uses a custom YOLO classifier to predict skin conditions from an uploaded photo and Google Gemini to generate a patient-friendly explanation. This repository contains the web UI, server, training notebook, and model weights placeholder.
 
