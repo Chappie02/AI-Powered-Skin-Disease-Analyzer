@@ -86,8 +86,4 @@ Notes:
 - Gemini errors — confirm the API key is valid and that your Google Cloud project has access to the Generative AI API.
 - YOLO inference issues — verify the model type (classification) and that `best.pt` was trained as a classification model.
 
-## Security & Privacy
-- Do not commit your Gemini API key or any private credentials to version control.
-- Uploaded images may contain personal data; handle them responsibly.
-
 
